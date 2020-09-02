@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.coremobile"
+        applicationId "com.puzzlerymnative"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
