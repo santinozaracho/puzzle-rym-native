@@ -22,7 +22,7 @@ const RootNavigation: React.FC<RootNavigationProps> = props => {
 
   return (
     <SafeAreaProvider>
-      {loading && <Spinner visible={loading} />}
+      {loading && <Spinner visible={loading} color={primary} />}
       <NavigationContainer>
         <Stack.Navigator headerMode="none">
           <Stack.Screen name="intro" component={PublicStack} />
