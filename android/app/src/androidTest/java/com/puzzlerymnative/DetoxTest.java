@@ -1,4 +1,4 @@
-package com.coremobile;
+package com.puzzlerymnative;
 
 import com.wix.detox.Detox;
 

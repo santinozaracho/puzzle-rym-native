@@ -1,4 +1,4 @@
 module.exports = {
-  placeholderName: 'CoreMobile',
+  placeholderName: 'PuzzleRyMNative',
   templateDir: './template',
-}
+};
