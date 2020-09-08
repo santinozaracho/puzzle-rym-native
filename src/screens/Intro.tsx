@@ -22,6 +22,8 @@ interface IntroScreenProps {
 const StyledCard = styled(Card)`
   flex: 1;
   margin: 20px;
+  justify-content: center;
+  align-items: center;
 `;
 const StyledLayout = styled(Layout)`
   flex: 1;
@@ -29,8 +31,18 @@ const StyledLayout = styled(Layout)`
   align-items: center;
 `;
 const StyledText = styled(Text)`
-  height: 60%;
+  align-content: center;
+  height: 55%;
 `;
+const StyledButtonView = styled(View)`
+  justify-content: center;
+  align-items: center;
+`;
+const StyledDateText = styled(Text)`
+  height: 5%;
+`;
+const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
 export const IntroScreen: React.FC<IntroScreenProps> = ({ navigation }) => {
   const { query } = useQueryContext();
 
@@ -41,19 +53,20 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ navigation }) => {
   );
 
   const Footer = props => (
-    <View {...props} style={props.style}>
+    <StyledButtonView {...props} style={props.style}>
       <Button onPress={() => navigation.navigate('main')}>Ok!, I'm Ready!!</Button>
-    </View>
+    </StyledButtonView>
   );
   return (
     <StyledLayout>
       <StyledCard header={Header} footer={Footer}>
         <StyledText>
           This project was built for an Challenge of Puzzle Co. Made by Santino Zaracho on
-          {'https://github.com/santinozaracho'}, as abstract, this Mobile App made with
+          {' ' + 'https://github.com/santinozaracho'}, as abstract, this Mobile App made with
           React-Native, and Apollo-GraphQL shows you any content of Rick And Morty serie.
         </StyledText>
       </StyledCard>
+      <StyledDateText>{new Date().toLocaleString(undefined, dateOptions)}</StyledDateText>
     </StyledLayout>
   );
 };

@@ -29,6 +29,7 @@ const StyledLayout = styled(Layout)`
   justify-content: center;
   align-items: center;
 `;
+const capitalizeFirst = name => name.charAt(0).toUpperCase() + name.slice(1);
 
 export const DetailsScreen: React.FC<DetailsScreenProps> = ({ navigation }) => {
   const { query, deleteItemDetails } = useQueryContext();
@@ -46,7 +47,7 @@ export const DetailsScreen: React.FC<DetailsScreenProps> = ({ navigation }) => {
         <TopNavigation
           alignment="center"
           title="Details"
-          subtitle="Characters"
+          subtitle={capitalizeFirst(query.entity)}
           accessoryLeft={renderBackAction}
         />
       </StyledTopLayout>
