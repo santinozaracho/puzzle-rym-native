@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect, useRef, createRef } from 'react';
 import styled from 'styled-components';
 import ItemView from './ItemView';
 import { View } from 'react-native';
-import { Layout } from '@ui-kitten/components';
-import { ScrollView } from 'react-native-gesture-handler';
+import { Layout, List, ListItem, Button, Icon, Text } from '@ui-kitten/components';
+import { ScrollView, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
+import useQueryContext from '../../../store/QueryContext';
+import { TouchableWeb } from '@ui-kitten/components/devsupport';
 
 /**
  * @description Grid View is responsible render the Grid for Items Views and the Paginator.
@@ -16,16 +18,61 @@ interface GridViewProps {
 }
 
 const StyledView = styled(View)`
-  height: 90%;
+  height: 100%;
+  width: 100%;
 `;
+const StyledText = styled(Text)`
+  margin: auto;
+`;
+const StyledTouchable = styled(TouchableOpacity)`
+  width: 60px;
+  height: 20px;
+`;
+
 const GridView: React.FC<GridViewProps> = ({ collectionResult, pages }) => {
+  const { query, nextPage } = useQueryContext();
+  const { page } = query;
+  const listRef = useRef(null);
+  const renderItem = ({ item }) => <ItemView item={item} />;
+  const backPageButton = props =>
+    page > 1 ? (
+      <TouchableOpacity onPress={() => nextPage(page - 1)}>
+        <Icon {...props} name="arrow-ios-back" />
+      </TouchableOpacity>
+    ) : (
+      <Icon {...props} name="radio-button-off-outline" />
+    );
+  const nextPageButton = props =>
+    page < pages ? (
+      <TouchableOpacity onPress={() => nextPage(page + 1)}>
+        <Icon {...props} name="arrow-ios-forward" />
+      </TouchableOpacity>
+    ) : (
+      <Icon {...props} name="radio-button-off-outline" />
+    );
+
+  const textCenter = props => <StyledText>{'Page ' + page + ' of ' + pages}</StyledText>;
+
+  useRef(listRef.current?.scrollToIndex({ animated: true, index: 0 }));
+
+  const handleNewdata = () => {};
+
   return (
     <StyledView>
-      <ScrollView>
-        {collectionResult.map((item: any) => (
-          <ItemView key={item.id} item={item} />
-        ))}
-      </ScrollView>
+      <List
+        ref={listRef}
+        data={collectionResult}
+        renderItem={renderItem}
+        onEndReached={handleNewdata}
+      />
+      {pages > 1 && (
+        <ListItem
+          disabled
+          title={textCenter}
+          accessoryLeft={backPageButton}
+          accessoryRight={nextPageButton}
+        />
+      )}
     </StyledView>
   );
 };

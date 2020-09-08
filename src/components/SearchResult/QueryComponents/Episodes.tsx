@@ -39,8 +39,13 @@ const Episodes: React.FC<EpisodesProps> = props => {
     },
   });
   if (loading) return <LoadingView />;
+
+  if (data) {
+    return <GridView collectionResult={data.episodes.results} pages={data.episodes.info.pages} />;
+  }
+
   if (error) return <ErrorView />;
-  return <GridView collectionResult={data.episodes.results} pages={data.episodes.info.pages} />;
+  return <LoadingView />;
 };
 
 export default Episodes;

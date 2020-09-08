@@ -34,7 +34,6 @@ export const GET_CHARACTERS = gql`
 const Characters: React.FC<CharactersProps> = props => {
   const { query } = useQueryContext();
 
-  const { setLoading } = useGeneralContext();
   const { loading, error, data } = useQuery(GET_CHARACTERS, {
     variables: {
       page: query.page,
@@ -44,9 +43,14 @@ const Characters: React.FC<CharactersProps> = props => {
   });
   if (loading) return <LoadingView />;
 
-  if (error) return <ErrorView />;
+  if (data) {
+    return (
+      <GridView collectionResult={data.characters.results} pages={data.characters.info.pages} />
+    );
+  }
 
-  return <GridView collectionResult={data.characters.results} pages={data.characters.info.pages} />;
+  if (error) return <ErrorView />;
+  return <LoadingView />;
 };
 
 export default Characters;

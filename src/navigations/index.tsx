@@ -6,7 +6,6 @@ import { PublicStack } from './PublicAccess';
 import { PrivateStack } from './PrivateAccess';
 import useGeneralContext from '../store/GeneralContext';
 import Spinner from 'react-native-loading-spinner-overlay';
-import { primary } from '../../assets/colorsPalette';
 
 const Stack = createStackNavigator();
 /**
@@ -22,7 +21,7 @@ const RootNavigation: React.FC<RootNavigationProps> = props => {
 
   return (
     <SafeAreaProvider>
-      {loading && <Spinner visible={loading} color={primary} />}
+      {loading && <Spinner visible={loading} />}
       <NavigationContainer>
         <Stack.Navigator headerMode="none">
           <Stack.Screen name="intro" component={PublicStack} />

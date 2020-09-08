@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState } from 'react';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider, IconRegistry } from '@ui-kitten/components';
 import PropTypes from 'prop-types';
-import { default as customTheme } from '../../assets/colorsPalette/theme.json';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
 /**
@@ -31,7 +30,7 @@ export const ThemeProvider = ({ children }) => {
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
       <IconRegistry icons={EvaIconsPack} />
-      <ApplicationProvider {...eva} theme={{ ...eva[theme], ...customTheme }}>
+      <ApplicationProvider {...eva} theme={eva[theme]}>
         {children}
       </ApplicationProvider>
     </ThemeContext.Provider>

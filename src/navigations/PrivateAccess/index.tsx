@@ -13,12 +13,14 @@ const screens = [
   {
     name: 'home',
     component: HomeScreen,
-    title: 'Home Screen',
+    options: { title: 'Home' },
   },
   {
     name: 'details',
     component: DetailsScreen,
-    title: 'Details Screen',
+    options: {
+      title: 'Details',
+    },
   },
 ];
 
@@ -29,8 +31,8 @@ const screens = [
 export const PrivateStack: React.FC<PrivateStackProps> = props => {
   return (
     <Stack.Navigator headerMode="none" initialRouteName="home">
-      {screens.map(({ name, component, title }) => (
-        <Stack.Screen name={name} component={component} key={name} options={{ title }} />
+      {screens.map(({ name, component, options }) => (
+        <Stack.Screen name={name} component={component} key={name} options={options} />
       ))}
     </Stack.Navigator>
   );

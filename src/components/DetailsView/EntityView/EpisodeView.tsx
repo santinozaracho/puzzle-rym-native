@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { View, ViewBase } from 'react-native';
-import { Layout, Text } from '@ui-kitten/components';
+import { View, ViewBase, ImageBackground } from 'react-native';
+import { Layout, Text, ListItem, Avatar, Card, List } from '@ui-kitten/components';
 
 /**
  * @description This component is responsible for render the fields of Episode.
@@ -18,41 +18,64 @@ interface EpisodesViewProps {
   };
 }
 
-// const StyledPaper = styled(Paper)`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   margin: auto;
-//   margin-top: 20px;
-//   min-width: 300px;
-//   max-width: 600px;
-// `;
-const StyledCard = styled(View)`
-  height: 100%;
-  width: 100%;
-  margin: 10px;
-  display: flex;
+const StyledView = styled(View)`
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const StyledFootView = styled(View)`
+  height: 400px;
+`;
+const StyledCard = styled(Card)`
+  flex: 1;
+`;
+const StyledLayout = styled(Layout)`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+`;
+const StyledText = styled(Text)`
+  margin: 2px;
+`;
+
+const StyledList = styled(List)`
+  background-color: white;
 `;
 
 const EpisodesView: React.FC<EpisodesViewProps> = props => {
   const { name, episode, air_date, characters, created } = props.episode;
+  const charactersFiltered = characters.length > 5 ? [...characters].splice(0, 5) : characters;
+
+  const Header = props => (
+    <StyledView {...props}>
+      <StyledText category="h2">{name}</StyledText>
+    </StyledView>
+  );
+
+  const renderItem = ({ item, index }) => (
+    <ListItem
+      accessoryLeft={() => (
+        <Avatar ImageComponent={ImageBackground} shape="square" source={{ uri: item.image }} />
+      )}
+      title={item.name}
+    />
+  );
+
+  const Footer = props => (
+    <StyledFootView {...props} style={props.style}>
+      <StyledText>Characters:</StyledText>
+      <StyledList data={charactersFiltered} renderItem={renderItem} />
+    </StyledFootView>
+  );
   return (
-    <View>
-      <Layout>
-        <Text>{name}</Text>
-        <Text>Episode: {episode}</Text>
-        <Text>Air Date: {air_date}</Text>
-        <Text>Created: {created}</Text>
-        <Text>Characters:</Text>
-        {/* {characters.map((char, i) => (
-          <StyledChip
-            key={i}
-            variant='outlined'
-            avatar={<Avatar src={char.image} />}
-            label={char.name} */}
-      </Layout>
-    </View>
+    <StyledLayout>
+      <StyledCard header={Header} footer={Footer}>
+        <StyledText>Episode: {episode}</StyledText>
+        <StyledText>Air Date: {air_date}</StyledText>
+        <StyledText>Created: {created}</StyledText>
+      </StyledCard>
+    </StyledLayout>
   );
 };
 

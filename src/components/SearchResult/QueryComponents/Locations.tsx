@@ -40,9 +40,12 @@ const Locations: React.FC<LocationsProps> = props => {
     },
   });
   if (loading) return <LoadingView />;
+
+  if (data) {
+    return <GridView collectionResult={data.locations.results} pages={data.locations.info.pages} />;
+  }
+
   if (error) return <ErrorView />;
-
-  return <GridView collectionResult={data.locations.results} pages={data.locations.info.pages} />;
+  return <LoadingView />;
 };
-
 export default Locations;

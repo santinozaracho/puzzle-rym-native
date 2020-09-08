@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import {
   Layout,
   Text,
@@ -13,6 +13,8 @@ import {
 import SearchInput from './SearchInput';
 import styled from 'styled-components';
 import useQueryContext from '../../store/QueryContext';
+import Filter from './Filter';
+import ClearButton from './ClearButton';
 
 const styles = StyleSheet.create({
   layout: {
@@ -27,52 +29,37 @@ const styles = StyleSheet.create({
 
 interface TopSearchBarProps {}
 
-const StyledTopLayout = styled(Layout)`
-  height: 10%;
-`;
+const StyledView = styled(View)`
+  flex: 1;
 
-const StyledLayout = styled(Layout)`
-  height: 90%;
+  flex-direction: row;
+`;
+const StyledSearchView = styled(View)`
+  width: 80%;
+
+  justify-content: center;
+  align-items: center;
+`;
+const StyledMenuView = styled(View)`
+  width: 20%;
+  flex: 1;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 `;
 
 const TopHomeBar: React.FC<TopSearchBarProps> = props => {
-  const { query } = useQueryContext();
-  const BackIcon = props => <Icon {...props} name="arrow-back" />;
-
-  const ClearIcon = props => <Icon {...props} name="close-outline" />;
-
-  const MenuIcon = props => <Icon {...props} name="funnel-outline" />;
-
-  const InfoIcon = props => <Icon {...props} name="info" />;
-
-  const LogoutIcon = props => <Icon {...props} name="log-out" />;
-
-  const [menuVisible, setMenuVisible] = React.useState(false);
-  const renderRightActions = () => (
-    <React.Fragment>
-      <TopNavigationAction icon={ClearIcon} onPress={clearQueryData} />
-      <OverflowMenu anchor={renderMenuAction} visible={menuVisible} onBackdropPress={toggleMenu}>
-        <MenuItem accessoryLeft={InfoIcon} title="About" />
-        <MenuItem accessoryLeft={LogoutIcon} title="Logout" />
-      </OverflowMenu>
-    </React.Fragment>
-  );
-  const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
-  };
-  const clearQueryData = () => {
-    console.log('hello');
-  };
-  const searchInput = () => <SearchInput />;
-  const renderMenuAction = () => <TopNavigationAction icon={MenuIcon} onPress={toggleMenu} />;
   return (
-    <TopNavigation
-      alignment="center"
-      accessoryLeft={searchInput}
-      accessoryRight={renderRightActions}
-    />
+    <StyledView>
+      <StyledSearchView>
+        <SearchInput />
+      </StyledSearchView>
+
+      <StyledMenuView>
+        <ClearButton />
+        <Filter />
+      </StyledMenuView>
+    </StyledView>
   );
 };
 

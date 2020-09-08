@@ -50,8 +50,8 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ navigation }) => {
       <StyledCard header={Header} footer={Footer}>
         <StyledText>
           This project was built for an Challenge of Puzzle Co. Made by Santino Zaracho on
-          {'https://github.com/santinozaracho'}, as abstract, this WebApp made in React.js, with
-          Apollo-GraphQL shows you any content of Rick And Morty serie.
+          {'https://github.com/santinozaracho'}, as abstract, this Mobile App made with
+          React-Native, and Apollo-GraphQL shows you any content of Rick And Morty serie.
         </StyledText>
       </StyledCard>
     </StyledLayout>

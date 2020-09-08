@@ -52,7 +52,7 @@ export const QueryProvider = ({ children }) => {
 
   const setSearchString = searchString => {
     let ready = searchString.length > 2;
-    setQuery({ ...query, searchString, ready });
+    setQuery({ ...query, searchString, ready, page: 1 });
   };
 
   const setEntity = entity => {

@@ -1,8 +1,10 @@
 import React from 'react';
 
 import styled from 'styled-components';
-import { View, Text } from 'react-native';
-import { Layout } from '@ui-kitten/components';
+import { View, Image } from 'react-native';
+import { Layout, Text, Card, Button, List, ListItem } from '@ui-kitten/components';
+import EpisodesView from './EpisodeView';
+import { ScrollView } from 'react-native-gesture-handler';
 
 /**
  * @description This component is responsible for render the fields of Character.
@@ -23,38 +25,67 @@ interface CharacterViewProps {
   };
 }
 
-// const StyledPaper = styled(Paper)`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   margin: auto;
-//   margin-top: 20px;
-//   min-width: 300px;
-//   max-width: 600px;
-// `;
-const StyledCard = styled(View)`
-  height: 100%;
-  width: 100%;
-  margin: 10px;
-  display: flex;
+const StyledView = styled(View)`
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const StyledFootView = styled(View)`
+  padding-top: 0px;
+  height: 190px;
+`;
+const StyledCard = styled(Card)`
+  flex: 1;
+  padding-top: 0px;
+  margin-top: 0px;
+`;
+const StyledLayout = styled(Layout)`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+`;
+const StyledText = styled(Text)`
+  margin: 2px;
+`;
+const StyledImage = styled(Image)`
+  height: 200px;
+  width: 100%;
+`;
+const StyledList = styled(List)`
+  background-color: white;
 `;
 
 const CharacterView: React.FC<CharacterViewProps> = props => {
   const { image, name, episode, origin, location, gender, type, status, species } = props.character;
+
+  const episodes = episode.length > 5 ? [...episode].splice(0, 5) : episode;
+  const Header = props => (
+    <StyledView {...props}>
+      <StyledText category="h5">{name}</StyledText>
+      <StyledImage source={{ uri: image }} />
+    </StyledView>
+  );
+
+  const renderItem = ({ item, index }) => <ListItem title={item.name} />;
+
+  const Footer = props => (
+    <StyledFootView {...props} style={props.style}>
+      <StyledText>Episodes:</StyledText>
+      <StyledList data={episodes} renderItem={renderItem} />
+    </StyledFootView>
+  );
   return (
-    <View>
-      <Layout>
-        <Text>{name}</Text>
-        <Text>Type: {type}</Text>
-        <Text>Gender: {gender}</Text>
-        <Text>Status: {status}</Text>
-        <Text>Species: {species}</Text>
-        <Text>Origin: {origin.name}</Text>
-        <Text>Location: {location.name}</Text>
-        <Text>Episodes:</Text>
-      </Layout>
-    </View>
+    <StyledLayout>
+      <StyledCard header={Header} footer={Footer}>
+        <StyledText>Type: {type}</StyledText>
+        <StyledText>Gender: {gender}</StyledText>
+        <StyledText>Status: {status}</StyledText>
+        <StyledText>Species: {species}</StyledText>
+        <StyledText>Origin: {origin.name}</StyledText>
+        <StyledText>Location: {location.name}</StyledText>
+      </StyledCard>
+    </StyledLayout>
   );
 };
 

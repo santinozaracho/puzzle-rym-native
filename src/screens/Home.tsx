@@ -18,18 +18,25 @@ const StyledLayout = styled(Layout)`
   align-items: center;
 `;
 
-const StyledBottomLayout = styled(Layout)`
-  height: 10%;
-  flex: 1;
-  align-items: center;
-  justify-content: flex-end;
-`;
 const StyledKeyboardAvoidingView = styled(KeyboardAvoidingView)`
   height: 100%;
 `;
 
 const StyledView = styled(View)`
-  height: 90%;
+  flex: 1;
+  height: 100%;
+  background-color: white;
+`;
+const StyledTopView = styled(View)`
+  flex: 1;
+  margin-top: 8px;
+  height: 7%;
+`;
+const StyledCenterView = styled(View)`
+  height: 86%;
+`;
+const StyledBottomView = styled(View)`
+  height: 7%;
 `;
 
 const connectEntity: any = {
@@ -58,31 +65,34 @@ export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <StyledView>
-        <TopHomeBar />
-        <ViewPager
-          selectedIndex={selectedIndex}
-          shouldLoadComponent={shouldLoadComponent}
-          onSelect={changeIndex}
-        >
-          <StyledLayout level="1">
-            <SearchResult />
-          </StyledLayout>
-          <StyledLayout level="1">
-            <SearchResult />
-          </StyledLayout>
-          <StyledLayout level="1">
-            <SearchResult />
-          </StyledLayout>
-        </ViewPager>
+        <StyledTopView>
+          <TopHomeBar />
+        </StyledTopView>
+        <StyledCenterView>
+          <ViewPager
+            selectedIndex={selectedIndex}
+            shouldLoadComponent={shouldLoadComponent}
+            onSelect={changeIndex}
+          >
+            <StyledLayout>
+              <SearchResult />
+            </StyledLayout>
+            <StyledLayout>
+              <SearchResult />
+            </StyledLayout>
+            <StyledLayout>
+              <SearchResult />
+            </StyledLayout>
+          </ViewPager>
+        </StyledCenterView>
+        <StyledBottomView>
+          <BottomNavigation selectedIndex={selectedIndex} onSelect={changeIndex}>
+            <BottomNavigationTab title="Characters" />
+            <BottomNavigationTab title="Locations" />
+            <BottomNavigationTab title="Episodes" />
+          </BottomNavigation>
+        </StyledBottomView>
       </StyledView>
-
-      <StyledBottomLayout>
-        <BottomNavigation selectedIndex={selectedIndex} onSelect={changeIndex}>
-          <BottomNavigationTab title="Characters" />
-          <BottomNavigationTab title="Locations" />
-          <BottomNavigationTab title="Episodes" />
-        </BottomNavigation>
-      </StyledBottomLayout>
     </StyledKeyboardAvoidingView>
   );
 };

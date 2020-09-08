@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Layout, Text } from '@ui-kitten/components';
-import { View } from 'react-native';
+import { Layout, Text, ListItem, Avatar, List, Card } from '@ui-kitten/components';
+import { View, ImageBackground } from 'react-native';
 
 /**
  * @description This component is responsible for render the fields of Location.
@@ -18,43 +18,64 @@ interface LocationViewProps {
   };
 }
 
-// const StyledPaper = styled(Paper)`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   margin: auto;
-//   margin-top: 20px;
-//   min-width: 300px;
-//   max-width: 600px;
-// `;
-const StyledCard = styled(View)`
-  height: 100%;
-  width: 100%;
-  margin: 10px;
-  display: flex;
+const StyledView = styled(View)`
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+const StyledFootView = styled(View)`
+  height: 400px;
+`;
+const StyledCard = styled(Card)`
+  flex: 1;
+`;
+const StyledLayout = styled(Layout)`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+  width: 95%;
+`;
+const StyledText = styled(Text)`
+  margin: 2px;
+`;
+
+const StyledList = styled(List)`
+  background-color: white;
 `;
 
 const LocationView: React.FC<LocationViewProps> = props => {
   const { name, type, created, dimension, residents } = props.location;
+  const residentsFiltered = residents.length > 5 ? [...residents].splice(0, 5) : residents;
+
+  const Header = props => (
+    <StyledView {...props}>
+      <StyledText category="h2">{name}</StyledText>
+    </StyledView>
+  );
+
+  const renderItem = ({ item, index }) => (
+    <ListItem
+      accessoryLeft={() => (
+        <Avatar ImageComponent={ImageBackground} shape="square" source={{ uri: item.image }} />
+      )}
+      title={item.name}
+    />
+  );
+
+  const Footer = props => (
+    <StyledFootView {...props} style={props.style}>
+      <StyledText>Residents:</StyledText>
+      <StyledList data={residentsFiltered} renderItem={renderItem} />
+    </StyledFootView>
+  );
   return (
-    <View>
-      <Layout>
-        <Text>{name}</Text>
-        <Text>Type: {type}</Text>
-        <Text>Dimension: {dimension}</Text>
-        <Text>Created: {created}</Text>
-        <Text>Residents:</Text>
-        {/* {residents.map((res, i) => (
-          <StyledChip
-            key={i}
-            variant="outlined"
-            avatar={<Avatar src={res.image} />}
-            label={res.name}
-          />
-        ))} */}
-      </Layout>
-    </View>
+    <StyledLayout>
+      <StyledCard header={Header} footer={Footer}>
+        <StyledText>Type: {type}</StyledText>
+        <StyledText>Dimension: {dimension}</StyledText>
+        <StyledText>Created: {created}</StyledText>
+      </StyledCard>
+    </StyledLayout>
   );
 };
 

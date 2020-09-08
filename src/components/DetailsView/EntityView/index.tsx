@@ -94,7 +94,6 @@ const EntityView: React.FC<EntityViewProps> = props => {
   });
 
   console.log(error);
-  console.log(data);
 
   if (loading) return <LoadingView />;
   if (error) return <ErrorView />;

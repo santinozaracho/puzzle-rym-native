@@ -24,7 +24,6 @@ interface ItemViewProps {
 const StyledCard = styled(Card)`
   flex: 1;
   margin: 10px;
-  height: 500px;
 `;
 const StyledLayout = styled(Layout)`
   flex: 1;
@@ -36,7 +35,7 @@ const StyledText = styled(Text)`
 `;
 
 const StyledImage = styled(Image)`
-  height: 100%;
+  height: 400px;
 `;
 
 const ItemView: React.FC<ItemViewProps> = ({ item }) => {
@@ -55,7 +54,6 @@ const ItemView: React.FC<ItemViewProps> = ({ item }) => {
   return (
     <StyledCard key={id} onPress={openItem} header={Header}>
       {image && <StyledImage source={{ uri: image }} />}
-      <StyledText>{name}</StyledText>
       {episode && <StyledText>{episode}</StyledText>}
       {dimension && <StyledText>{dimension}</StyledText>}
     </StyledCard>
