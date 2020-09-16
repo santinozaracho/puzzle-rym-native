@@ -1,10 +1,7 @@
 import React from 'react';
-
 import styled from 'styled-components';
 import { View, Image } from 'react-native';
-import { Layout, Text, Card, Button, List, ListItem } from '@ui-kitten/components';
-import EpisodesView from './EpisodeView';
-import { ScrollView } from 'react-native-gesture-handler';
+import { Layout, Text, Card, List, ListItem } from '@ui-kitten/components';
 
 /**
  * @description This component is responsible for render the fields of Character.
@@ -67,7 +64,7 @@ const CharacterView: React.FC<CharacterViewProps> = props => {
     </StyledView>
   );
 
-  const renderItem = ({ item, index }) => <ListItem title={item.name} />;
+  const renderItem = ({ item }) => <ListItem title={item.name} />;
 
   const Footer = props => (
     <StyledFootView {...props} style={props.style}>

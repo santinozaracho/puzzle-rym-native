@@ -1,10 +1,10 @@
 import React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import GridView from '../GridView';
 import useQueryContext from '../../../store/QueryContext';
 import ErrorView from '../../ErrorView';
 import LoadingView from '../../LoadingView';
-import { Spinner, Text } from '@ui-kitten/components';
+import { GET_EPISODES } from '../../../queries/entityQueries';
 
 /**
  * @description Episodes Component is responsible for Query Episodes to API and render the Grid View.
@@ -12,23 +12,19 @@ import { Spinner, Text } from '@ui-kitten/components';
  */
 
 interface EpisodesProps {}
+const componentSelector = (loading: any, error: any, data: any) => {
+  if (data) {
+    const {
+      episodes: { results, info },
+    } = data;
 
-export const GET_EPISODES = gql`
-  query Episodes($page: Int!, $nameFilter: String, $episodeFilter: String) {
-    episodes(page: $page, filter: { name: $nameFilter, episode: $episodeFilter }) {
-      info {
-        next
-        count
-        pages
-      }
-      results {
-        id
-        episode
-        name
-      }
-    }
+    return <GridView collectionResult={results} pages={info.pages} />;
   }
-`;
+  if (loading) return <LoadingView />;
+
+  return <ErrorView />;
+};
+
 const Episodes: React.FC<EpisodesProps> = props => {
   const { query } = useQueryContext();
   const { loading, error, data } = useQuery(GET_EPISODES, {
@@ -38,14 +34,8 @@ const Episodes: React.FC<EpisodesProps> = props => {
       episodeFilter: query.filter.extra ? query.searchString : '',
     },
   });
-  if (loading) return <LoadingView />;
-
-  if (data) {
-    return <GridView collectionResult={data.episodes.results} pages={data.episodes.info.pages} />;
-  }
-
-  if (error) return <ErrorView />;
-  return <LoadingView />;
+  const componentToRender = componentSelector(loading, error, data);
+  return componentToRender;
 };
 
 export default Episodes;

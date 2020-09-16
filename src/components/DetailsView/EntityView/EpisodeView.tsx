@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { View, ViewBase, ImageBackground } from 'react-native';
+import { View, ImageBackground } from 'react-native';
 import { Layout, Text, ListItem, Avatar, Card, List } from '@ui-kitten/components';
 
 /**
@@ -53,14 +53,12 @@ const EpisodesView: React.FC<EpisodesViewProps> = props => {
     </StyledView>
   );
 
-  const renderItem = ({ item, index }) => (
-    <ListItem
-      accessoryLeft={() => (
-        <Avatar ImageComponent={ImageBackground} shape="square" source={{ uri: item.image }} />
-      )}
-      title={item.name}
-    />
-  );
+  const renderItem = ({ item }) => {
+    const characterAvatar = () => (
+      <Avatar ImageComponent={ImageBackground} shape="square" source={{ uri: item.image }} />
+    );
+    return <ListItem accessoryLeft={characterAvatar} title={item.name} />;
+  };
 
   const Footer = props => (
     <StyledFootView {...props} style={props.style}>

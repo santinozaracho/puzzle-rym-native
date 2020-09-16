@@ -1,11 +1,10 @@
 import React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import GridView from '../GridView';
 import useQueryContext from '../../../store/QueryContext';
 import ErrorView from '../../ErrorView';
 import LoadingView from '../../LoadingView';
-import useGeneralContext from '../../../store/GeneralContext';
-import { Spinner, Text } from '@ui-kitten/components';
+import { GET_CHARACTERS } from '../../../queries/entityQueries';
 
 /**
  * @description Characters Component is responsible for Query Characters to API and render the Grid View.
@@ -13,23 +12,18 @@ import { Spinner, Text } from '@ui-kitten/components';
  */
 
 interface CharactersProps {}
+const componentSelector = (loading: any, error: any, data: any) => {
+  if (data) {
+    const {
+      characters: { results, info },
+    } = data;
 
-export const GET_CHARACTERS = gql`
-  query Characters($page: Int!, $nameFilter: String, $typeFilter: String) {
-    characters(page: $page, filter: { name: $nameFilter, type: $typeFilter }) {
-      info {
-        next
-        count
-        pages
-      }
-      results {
-        id
-        name
-        image
-      }
-    }
+    return <GridView collectionResult={results} pages={info.pages} />;
   }
-`;
+  if (loading) return <LoadingView />;
+
+  return <ErrorView />;
+};
 
 const Characters: React.FC<CharactersProps> = props => {
   const { query } = useQueryContext();
@@ -41,16 +35,9 @@ const Characters: React.FC<CharactersProps> = props => {
       typeFilter: query.filter.extra ? query.searchString : '',
     },
   });
-  if (loading) return <LoadingView />;
 
-  if (data) {
-    return (
-      <GridView collectionResult={data.characters.results} pages={data.characters.info.pages} />
-    );
-  }
-
-  if (error) return <ErrorView />;
-  return <LoadingView />;
+  const componentToRender = componentSelector(loading, error, data);
+  return componentToRender;
 };
 
 export default Characters;

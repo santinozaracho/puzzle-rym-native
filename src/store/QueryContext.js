@@ -78,7 +78,7 @@ export const QueryProvider = ({ children }) => {
   const setItemDetails = itemID => {
     setQuery({ ...query, itemDetails: { open: true, itemID } });
   };
-  console.log(query);
+
   return (
     <QueryContext.Provider
       value={{

@@ -1,9 +1,8 @@
 import React from 'react';
-import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Layout, Text, Button, Card } from '@ui-kitten/components';
 import useQueryContext from '../store/QueryContext';
 import styled from 'styled-components';
-import { Link } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
   layout: {

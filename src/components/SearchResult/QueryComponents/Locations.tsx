@@ -1,10 +1,10 @@
 import React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import GridView from '../GridView';
 import useQueryContext from '../../../store/QueryContext';
 import ErrorView from '../../ErrorView';
 import LoadingView from '../../LoadingView';
-import { Spinner, Text } from '@ui-kitten/components';
+import { GET_LOCATIONS } from '../../../queries/entityQueries';
 
 /**
  * @description Locations Component is responsible for Query Locations to API and render the Grid View.
@@ -13,23 +13,18 @@ import { Spinner, Text } from '@ui-kitten/components';
 
 interface LocationsProps {}
 
-export const GET_LOCATIONS = gql`
-  query Locations($page: Int!, $nameFilter: String, $dimensionFilter: String) {
-    locations(page: $page, filter: { name: $nameFilter, dimension: $dimensionFilter }) {
-      info {
-        next
-        count
-        pages
-      }
-      results {
-        id
-        name
-        dimension
-      }
-    }
-  }
-`;
+const componentSelector = (loading: any, error: any, data: any) => {
+  if (data) {
+    const {
+      locations: { results, info },
+    } = data;
 
+    return <GridView collectionResult={results} pages={info.pages} />;
+  }
+  if (loading) return <LoadingView />;
+
+  return <ErrorView />;
+};
 const Locations: React.FC<LocationsProps> = props => {
   const { query } = useQueryContext();
   const { loading, error, data } = useQuery(GET_LOCATIONS, {
@@ -39,13 +34,8 @@ const Locations: React.FC<LocationsProps> = props => {
       dimensionFilter: query.filter.extra ? query.searchString : '',
     },
   });
-  if (loading) return <LoadingView />;
 
-  if (data) {
-    return <GridView collectionResult={data.locations.results} pages={data.locations.info.pages} />;
-  }
-
-  if (error) return <ErrorView />;
-  return <LoadingView />;
+  const componentToRender = componentSelector(loading, error, data);
+  return componentToRender;
 };
 export default Locations;

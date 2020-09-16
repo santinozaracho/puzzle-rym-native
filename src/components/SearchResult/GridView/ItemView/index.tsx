@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, TouchableWithoutFeedback, View, Image } from 'react-native';
-import { Layout, Text, Button, Card, Divider } from '@ui-kitten/components';
+import { View, Image } from 'react-native';
+import { Text, Card } from '@ui-kitten/components';
 import styled from 'styled-components';
 
 import useQueryContext from '../../../../store/QueryContext';
@@ -25,11 +25,7 @@ const StyledCard = styled(Card)`
   flex: 1;
   margin: 10px;
 `;
-const StyledLayout = styled(Layout)`
-  flex: 1;
-  justify-content: center;
-  align-items: center;
-`;
+
 const StyledText = styled(Text)`
   margin: 10px;
 `;

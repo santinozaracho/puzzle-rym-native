@@ -53,14 +53,12 @@ const LocationView: React.FC<LocationViewProps> = props => {
     </StyledView>
   );
 
-  const renderItem = ({ item, index }) => (
-    <ListItem
-      accessoryLeft={() => (
-        <Avatar ImageComponent={ImageBackground} shape="square" source={{ uri: item.image }} />
-      )}
-      title={item.name}
-    />
-  );
+  const renderItem = ({ item }) => {
+    const characterAvatar = () => (
+      <Avatar ImageComponent={ImageBackground} shape="square" source={{ uri: item.image }} />
+    );
+    return <ListItem accessoryLeft={characterAvatar} title={item.name} />;
+  };
 
   const Footer = props => (
     <StyledFootView {...props} style={props.style}>
