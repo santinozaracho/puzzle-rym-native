@@ -25,6 +25,7 @@ const SearchInput: React.SFC<SearchInputProps> = props => {
 
   return (
     <StyledInput
+      testID="SearchInput"
       value={query.searchString}
       placeholder="Search something here!"
       accessoryLeft={renderIconSearch}

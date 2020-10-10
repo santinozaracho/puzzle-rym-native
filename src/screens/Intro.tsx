@@ -53,7 +53,7 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ navigation }) => {
 
   const Footer = props => (
     <StyledButtonView {...props} style={props.style}>
-      <Button onPress={() => navigation.navigate('main')}>Ok!, I'm Ready!!</Button>
+      <Button testID="ButtonImReady" onPress={() => navigation.navigate('main')}>Ok!, I'm Ready!!</Button>
     </StyledButtonView>
   );
   return (
