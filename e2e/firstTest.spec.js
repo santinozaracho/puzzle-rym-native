@@ -1,13 +1,13 @@
-describe('Example', () => {
+describe('Test Landing', () => {
   beforeEach(async () => {
     await device.reloadReactNative();
   });
 
-  it('should have "Step One" section', async () => {
-    await expect(element(by.text('Step One'))).toBeVisible();
-  });
-
-  it('should have "See Your Changes" section', async () => {
-    await expect(element(by.text('See Your Changes'))).toBeVisible();
+  it('flow that carry you to the Landing Page', async () => {
+    await expect(element(by.id('ButtonImReady'))).toBeVisible();
+    await element(by.id('ButtonImReady')).tap();
+    await waitFor(element(by.id('SearchInput')))
+      .toBeVisible()
+      .withTimeout(2000);
   });
 });
