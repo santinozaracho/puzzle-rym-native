@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from '@testing-library/react';
 import Characters from '../src/components/SearchResult/QueryComponents/Characters';
 import { MockedProvider } from '@apollo/client/testing';
-import { CHARACTERS_MOCKS } from './mocks/charactersQuery';
+import { CHARACTERS_MOCKS } from '../__mocks__/charactersQuery';
 import { QueryProvider } from '../src/store/QueryContext';
 import { ThemeProvider } from '../src/store/ThemeContext';
 import { createStackNavigator } from '@react-navigation/stack';

@@ -1,4 +1,4 @@
-import { GET_CHARACTERS } from './entityQueries';
+import { GET_CHARACTERS } from '../src/queries/entityQueries';
 
 const CHARACTERS_RESULT_DATA = {
   characters: {
