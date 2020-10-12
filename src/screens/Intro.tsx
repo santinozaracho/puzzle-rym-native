@@ -19,20 +19,23 @@ interface IntroScreenProps {
 }
 
 const StyledCard = styled(Card)`
-  flex: 1;
-  margin: 20px;
+  height: 95%;
   justify-content: center;
   align-items: center;
 `;
+
 const StyledLayout = styled(Layout)`
-  flex: 1;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  padding: 5%;
 `;
+
 const StyledText = styled(Text)`
   align-content: center;
   height: 55%;
 `;
+
 const StyledButtonView = styled(View)`
   justify-content: center;
   align-items: center;
@@ -40,10 +43,10 @@ const StyledButtonView = styled(View)`
 const StyledDateText = styled(Text)`
   height: 5%;
 `;
+
 const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
 export const IntroScreen: React.FC<IntroScreenProps> = ({ navigation }) => {
-  const { query } = useQueryContext();
 
   const Header = props => (
     <View {...props}>
@@ -58,7 +61,7 @@ export const IntroScreen: React.FC<IntroScreenProps> = ({ navigation }) => {
   );
   return (
     <StyledLayout>
-      <StyledCard header={Header} footer={Footer}>
+      <StyledCard disabled header={Header} footer={Footer}>
         <StyledText>
           This project was built for an Challenge of Puzzle Co. Made by Santino Zaracho on
           {' ' + 'https://github.com/santinozaracho'}, as abstract, this Mobile App made with

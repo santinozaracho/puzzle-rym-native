@@ -6,8 +6,7 @@ const StyledText = styled(Text)`
   margin: 30px;
 `;
 
-interface ErrorViewProps {}
-const ErrorView: React.FC<ErrorViewProps> = props => {
+const ErrorView: React.FC = () => {
   return <StyledText>We're Sorry, We couldn't find that your are searching.</StyledText>;
 };
 

@@ -1,11 +1,10 @@
-import React, { useEffect, useRef, createRef } from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import ItemView from './ItemView';
 import { View } from 'react-native';
-import { Layout, List, ListItem, Button, Icon, Text } from '@ui-kitten/components';
-import { ScrollView, TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
+import { List, ListItem, Icon, Text } from '@ui-kitten/components';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 import useQueryContext from '../../../store/QueryContext';
-import { TouchableWeb } from '@ui-kitten/components/devsupport';
 
 /**
  * @description Grid View is responsible render the Grid for Items Views and the Paginator.
@@ -23,10 +22,6 @@ const StyledView = styled(View)`
 `;
 const StyledText = styled(Text)`
   margin: auto;
-`;
-const StyledTouchable = styled(TouchableOpacity)`
-  width: 60px;
-  height: 20px;
 `;
 
 const GridView: React.FC<GridViewProps> = ({ collectionResult, pages }) => {
@@ -51,7 +46,7 @@ const GridView: React.FC<GridViewProps> = ({ collectionResult, pages }) => {
       <Icon {...props} name="radio-button-off-outline" />
     );
 
-  const textCenter = props => <StyledText>{'Page ' + page + ' of ' + pages}</StyledText>;
+  const textCenter = () => <StyledText>{'Page ' + page + ' of ' + pages}</StyledText>;
 
   useRef(listRef.current?.scrollToIndex({ animated: true, index: 0 }));
 

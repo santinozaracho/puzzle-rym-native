@@ -21,7 +21,7 @@ export const QueryProvider = ({ children }) => {
     page: 1,
     ready: false,
     itemDetails: {
-      open: false,
+      isOpen: false,
       itemID: '',
     },
   });
@@ -38,7 +38,7 @@ export const QueryProvider = ({ children }) => {
       page: 1,
       ready: false,
       itemDetails: {
-        open: false,
+        isOpen: false,
         itemID: '',
       },
     });
@@ -72,11 +72,11 @@ export const QueryProvider = ({ children }) => {
   };
 
   const deleteItemDetails = () => {
-    setQuery({ ...query, itemDetails: { open: false, itemID: '' } });
+    setQuery({ ...query, itemDetails: { isOpen: false, itemID: '' } });
   };
 
   const setItemDetails = itemID => {
-    setQuery({ ...query, itemDetails: { open: true, itemID } });
+    setQuery({ ...query, itemDetails: { isOpen: true, itemID } });
   };
 
   return (

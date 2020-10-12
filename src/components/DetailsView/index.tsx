@@ -1,5 +1,4 @@
 import React from 'react';
-import styled from 'styled-components';
 import useQueryContext from '../../store/QueryContext';
 import EntityView from './EntityView';
 import ErrorView from '../ErrorView';
@@ -9,12 +8,12 @@ import ErrorView from '../ErrorView';
  * @return {component}
  */
 
-interface DetailsViewProps {}
+const DetailsView: React.FC = () => {
+  const {
+    query: { itemDetails },
+  } = useQueryContext();
 
-const DetailsView: React.FC<DetailsViewProps> = props => {
-  const { query } = useQueryContext();
-
-  if (!query.itemDetails.open) return <ErrorView />;
+  if (!itemDetails.isOpen) return <ErrorView />;
 
   return <EntityView />;
 };

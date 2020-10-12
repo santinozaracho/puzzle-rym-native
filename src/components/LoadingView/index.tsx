@@ -1,6 +1,4 @@
 import React from 'react';
-import { primary } from '../../../assets/colorsPalette';
-import styled from 'styled-components';
 import { Spinner } from '@ui-kitten/components';
 
 /**
@@ -8,8 +6,7 @@ import { Spinner } from '@ui-kitten/components';
  * @return {component}
  */
 
-interface LoadingViewProps {}
-const LoadingView: React.FC<LoadingViewProps> = props => {
+const LoadingView: React.FC = () => {
   return <Spinner size="giant" />;
 };
 

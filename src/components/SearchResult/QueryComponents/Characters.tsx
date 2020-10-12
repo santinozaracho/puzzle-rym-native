@@ -11,7 +11,6 @@ import { GET_CHARACTERS } from '../../../queries/entityQueries';
  * @return {component}
  */
 
-interface CharactersProps {}
 const componentSelector = (loading: any, error: any, data: any) => {
   if (data) {
     const {
@@ -25,7 +24,7 @@ const componentSelector = (loading: any, error: any, data: any) => {
   return <ErrorView />;
 };
 
-const Characters: React.FC<CharactersProps> = props => {
+const Characters: React.FC = () => {
   const { query } = useQueryContext();
 
   const { loading, error, data } = useQuery(GET_CHARACTERS, {

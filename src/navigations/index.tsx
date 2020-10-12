@@ -13,10 +13,7 @@ const Stack = createStackNavigator();
  * @return {component}
  */
 
-// tslint:disable-next-line: no-empty-interface
-interface RootNavigationProps {}
-
-const RootNavigation: React.FC<RootNavigationProps> = props => {
+const RootNavigation: React.FC = () => {
   const { loading } = useGeneralContext();
 
   return (

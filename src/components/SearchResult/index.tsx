@@ -11,24 +11,20 @@ import { Text } from '@ui-kitten/components';
  * @return {component}
  */
 
-interface SearchResultProps {}
-
-const connectQuery: any = {
-  characters: () => <Characters />,
-
-  locations: () => <Locations />,
-
-  episodes: () => <Episodes />,
+const querySelector: any = {
+  characters: Characters,
+  locations: Locations,
+  episodes: Episodes,
 };
 
-const SearchResult: React.FC<SearchResultProps> = props => {
+const SearchResult: React.FC = () => {
   const { query } = useQueryContext();
 
   if (!query.ready) return <Text>Start writing in the Top Bar!</Text>;
 
-  const searchResult = connectQuery[query.entity]();
+  const QueryToRender = querySelector[query.entity];
 
-  return searchResult;
+  return <QueryToRender />;
 };
 
 export default SearchResult;
