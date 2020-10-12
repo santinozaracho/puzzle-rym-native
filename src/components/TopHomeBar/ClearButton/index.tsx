@@ -9,11 +9,21 @@ const ClearButton: React.FC = () => {
   } = useQueryContext();
 
   const ClearIcon = props => (
-    <Icon {...props} fill={searchString !== '' ? '#3366FF' : 'grey'} name="close-outline" />
+    <Icon
+      {...props}
+      testID="clear-icon"
+      fill={searchString === '' ? 'grey' : '#3366FF'}
+      name="close-outline"
+    />
   );
 
   return (
-    <TopNavigationAction disabled={searchString === ''} icon={ClearIcon} onPress={clearQuery} />
+    <TopNavigationAction
+      disabled={searchString === ''}
+      testID="clear-btn"
+      icon={ClearIcon}
+      onPress={clearQuery}
+    />
   );
 };
 
