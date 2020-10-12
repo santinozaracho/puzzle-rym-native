@@ -23,20 +23,17 @@ const StyledKeyboardAvoidingView = styled(KeyboardAvoidingView)`
 `;
 
 const StyledView = styled(View)`
-  flex: 1;
   height: 100%;
   background-color: white;
 `;
 const StyledTopView = styled(View)`
-  flex: 1;
-  margin-top: 8px;
-  height: 7%;
+  height: 8%;
 `;
 const StyledCenterView = styled(View)`
-  height: 86%;
+  height: 85%;
 `;
 const StyledBottomView = styled(View)`
-  height: 7%;
+  height: 5%;
 `;
 
 const connectEntity: any = {
@@ -48,7 +45,7 @@ const connectEntity: any = {
 };
 
 export const HomeScreen: React.FC<HomeScreenProps> = ({ navigation }) => {
-  const { query, setEntity } = useQueryContext();
+  const { setEntity } = useQueryContext();
 
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 

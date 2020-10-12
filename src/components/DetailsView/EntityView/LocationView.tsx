@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Layout, Text, ListItem, Avatar, List, Card } from '@ui-kitten/components';
+import { Layout, Text, ListItem, Avatar, List } from '@ui-kitten/components';
 import { View, ImageBackground } from 'react-native';
 
 /**
@@ -18,25 +18,37 @@ interface LocationViewProps {
   };
 }
 
-const StyledView = styled(View)`
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+const StyledHeader = styled(View)`
+  height: 20%;
+  width: 100%;
+  margin-bottom: 20%;
 `;
-const StyledFootView = styled(View)`
-  height: 400px;
+
+const StyledLayoutList = styled(View)`
+  height: 60%;
+  width: 100%;
 `;
-const StyledCard = styled(Card)`
-  flex: 1;
+
+const StyledBody = styled(View)`
+  height: 20%;
 `;
+
 const StyledLayout = styled(Layout)`
-  flex: 1;
   justify-content: center;
-  align-items: center;
-  width: 95%;
+  align-items: flex-start;
+  flex: 1;
+  height: 100%;
+  padding: 10%;
+  padding-top: 5%;
+  width: 100%;
 `;
+
 const StyledText = styled(Text)`
   margin: 2px;
+`;
+const StyledTextTitle = styled(Text)`
+  margin: 10px;
+  align-self: center;
 `;
 
 const StyledList = styled(List)`
@@ -46,13 +58,6 @@ const StyledList = styled(List)`
 const LocationView: React.FC<LocationViewProps> = props => {
   const { name, type, created, dimension, residents } = props.location;
   const residentsFiltered = residents.length > 5 ? [...residents].splice(0, 5) : residents;
-
-  const Header = props => (
-    <StyledView {...props}>
-      <StyledText category="h2">{name}</StyledText>
-    </StyledView>
-  );
-
   const renderItem = ({ item }) => {
     const characterAvatar = () => (
       <Avatar ImageComponent={ImageBackground} shape="square" source={{ uri: item.image }} />
@@ -60,19 +65,20 @@ const LocationView: React.FC<LocationViewProps> = props => {
     return <ListItem accessoryLeft={characterAvatar} title={item.name} />;
   };
 
-  const Footer = props => (
-    <StyledFootView {...props} style={props.style}>
-      <StyledText>Residents:</StyledText>
-      <StyledList data={residentsFiltered} renderItem={renderItem} />
-    </StyledFootView>
-  );
   return (
     <StyledLayout>
-      <StyledCard header={Header} footer={Footer}>
+      <StyledHeader>
+        <StyledTextTitle category="h3">{name}</StyledTextTitle>
+      </StyledHeader>
+      <StyledBody>
         <StyledText>Type: {type}</StyledText>
         <StyledText>Dimension: {dimension}</StyledText>
         <StyledText>Created: {created}</StyledText>
-      </StyledCard>
+      </StyledBody>
+      <StyledLayoutList>
+        <StyledText>Residents:</StyledText>
+        <StyledList data={residentsFiltered} renderItem={renderItem} />
+      </StyledLayoutList>
     </StyledLayout>
   );
 };

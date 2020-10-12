@@ -48,7 +48,7 @@ const ItemView: React.FC<ItemViewProps> = ({ item }) => {
     navigation.navigate('details');
   };
   return (
-    <StyledCard key={id} onPress={openItem} header={Header}>
+    <StyledCard testID="item-in-result" key={id} onPress={openItem} header={Header}>
       {image && <StyledImage source={{ uri: image }} />}
       {episode && <StyledText>{episode}</StyledText>}
       {dimension && <StyledText>{dimension}</StyledText>}

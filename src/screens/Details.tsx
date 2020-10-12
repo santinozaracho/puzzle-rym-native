@@ -21,11 +21,11 @@ interface DetailsScreenProps {
 }
 
 const StyledTopLayout = styled(Layout)`
-  height: 7%;
+  height: 10%;
 `;
 
 const StyledLayout = styled(Layout)`
-  height: 93%;
+  height: 90%;
   justify-content: center;
   align-items: center;
 `;

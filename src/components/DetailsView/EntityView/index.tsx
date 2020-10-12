@@ -1,5 +1,5 @@
 import React from 'react';
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import useQueryContext from '../../../store/QueryContext';
 import ErrorView from '../../ErrorView';
 import LoadingView from '../../LoadingView';
@@ -12,16 +12,16 @@ import { GET_CHARACTER, GET_EPISODE, GET_LOCATION } from '../../../queries/entit
  * @description This component is responsible for make querys to RandM API and render the correct View.
  * @return {component}
  */
-interface EntityViewProps {}
 
 const connectQuery: any = {
-  characters: () => GET_CHARACTER,
+  characters: GET_CHARACTER,
 
-  locations: () => GET_LOCATION,
+  locations: GET_LOCATION,
 
-  episodes: () => GET_EPISODE,
+  episodes: GET_EPISODE,
 };
 
+// TODO replace any types
 const componentSelector = (loading: any, error: any, data: any) => {
   if (data) {
     const { character, location, episode } = data;
@@ -37,12 +37,12 @@ const componentSelector = (loading: any, error: any, data: any) => {
   return <ErrorView />;
 };
 
-const EntityView: React.FC<EntityViewProps> = props => {
+const EntityView: React.FC = () => {
   const {
     query: { entity, itemDetails },
   } = useQueryContext();
 
-  const { loading, error, data } = useQuery(connectQuery[entity](), {
+  const { loading, error, data } = useQuery(connectQuery[entity], {
     variables: {
       id: itemDetails.itemID,
     },
